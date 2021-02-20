@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "131422194439",
+    "project_id": "cartracker-ba4e6",
+    "storage_bucket": "cartracker-ba4e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131422194439:android:498a0a6a44a2440aec93a2",
+        "android_client_info": {
+          "package_name": "com.example.cartracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131422194439-eon4ihk9a4genrs54vtnqd694jajl8a7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2ISEmofN0P6jGJI4M3nODcoZ5UKhdgoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131422194439-eon4ihk9a4genrs54vtnqd694jajl8a7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

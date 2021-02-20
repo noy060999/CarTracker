@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CarTracker</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_page">Sign Up Page</string>
+    <string name="sign_in_page">Sign In Page</string>
+</resources>
