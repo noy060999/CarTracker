@@ -32,26 +32,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
+//my location service
 public class LocationService extends Service {
+
+    //firebase settings
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("users");
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
 
     private final LocationCallback locationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
+            //check last location
             if (locationResult != null && locationResult.getLastLocation() != null) {
                 double lat = locationResult.getLastLocation().getLatitude();
                 double lon = locationResult.getLastLocation().getLongitude();
                 String uid = firebaseAuth.getUid();
-                String location = "lon:" + lon + ",lat:" + lat;
                 //myRef.child(uid).setValue(location);
                 myRef.child(uid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //set last location to the user in db every time that location changed
                         User currentUser = snapshot.getValue(User.class);
+                        //update method - to update location
                         currentUser = updateUserInDB(currentUser, lon, lat);
                         myRef.child(uid).setValue(currentUser);
                     }
@@ -76,6 +81,7 @@ public class LocationService extends Service {
     @SuppressLint("MissingPermission")
     private void startLocationService() {
         String channelId = "location_notification_channel";
+        //notification on top of device
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Intent resultIntent = new Intent();
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -109,9 +115,10 @@ public class LocationService extends Service {
             }
         }
 
+        //location req- get the location setup
         LocationRequest locationRequest = new LocationRequest();
-        locationRequest.setInterval(7000);
-        locationRequest.setFastestInterval(4000);
+        locationRequest.setInterval(4000);
+        locationRequest.setFastestInterval(2000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         LocationServices.getFusedLocationProviderClient(this)
@@ -122,6 +129,7 @@ public class LocationService extends Service {
     private void stopLocationService() {
         LocationServices.getFusedLocationProviderClient(this)
                 .removeLocationUpdates(locationCallback);
+        //stop the service when app is killed
         stopForeground(true);
         stopSelf();
     }
@@ -130,6 +138,7 @@ public class LocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
             String action = intent.getAction();
+            //i checked the action (start/stop) using intent location
             if (action != null) {
                 if (action.equals(Constants.ACTION_START_LOCATION_SERVICE)) {
                     startLocationService();
@@ -153,16 +162,19 @@ public class LocationService extends Service {
         carTreatment.setLastTreatmentDate(carTreatment.getLastTreatmentDate());
         car.setCarTreatment(carTreatment);
         currentUser.setCar(car);
+        //get the location lat and lon from the db
         Double lastLon = car.getLon();
         Double lastLat = car.getLat();
         Location curLocation = new Location("curLocation");
         curLocation.setLatitude(lastLat);
         curLocation.setLongitude(lastLon);
         Location newLocation = new Location("newLocation");
+        //set new location based on the location service
         newLocation.setLongitude(lon);
         newLocation.setLatitude(lat);
         car.setLat(lat);
         car.setLon(lon);
+        //calc distance
         float distance = curLocation.distanceTo(newLocation);
         if (distance > 10000){
             Toast.makeText(this, "You need to make a car treatment!", Toast.LENGTH_LONG).show();

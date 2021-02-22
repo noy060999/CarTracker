@@ -19,11 +19,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignIn extends AppCompatActivity {
 
+    //containers list
     EditText edt_signin_email;
     EditText edt_signin_password;
     EditText edt_signin_carNumber;
     MaterialButton signInBtn_signin;
     ProgressBar signIn_progressBar;
+
+    //firebase settings
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -45,6 +48,7 @@ public class SignIn extends AppCompatActivity {
         String usrPassword = edt_signin_password.getText().toString();
         String usrCarNum = edt_signin_carNumber.getText().toString();
 
+        //check that data exist
         if (TextUtils.isEmpty(usrEmail)){
             edt_signin_email.setError("Email is Required.");
             return;
@@ -61,6 +65,8 @@ public class SignIn extends AppCompatActivity {
         }
 
         signIn_progressBar.setVisibility(View.VISIBLE);
+
+        //firebase sign in method
         firebaseAuth.signInWithEmailAndPassword(usrEmail, usrPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

@@ -1,6 +1,7 @@
 package com.example.cartracker;
 
 public class User {
+    //properties
     private String email;
     private String fullName;
     private Car car;

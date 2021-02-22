@@ -3,6 +3,7 @@ package com.example.cartracker;
 import android.location.Location;
 
 public class Car {
+    //properties
     private String carBrand;
     private String carModel;
     private String carNumber;

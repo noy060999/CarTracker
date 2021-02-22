@@ -31,6 +31,7 @@ import java.util.GregorianCalendar;
 
 public class SignUp extends AppCompatActivity {
 
+    //containers list
     EditText edt_signup_fullName;
     EditText edt_signup_email;
     EditText edt_signup_password;
@@ -43,6 +44,8 @@ public class SignUp extends AppCompatActivity {
     DatePicker datePicker_carLastCareDate;
     MaterialButton signUpBtn;
     ProgressBar progressBarSignUp;
+
+    //firebase settings
     FirebaseAuth firebaseAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("users");
@@ -64,6 +67,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void findViews() {
+        //my list of cars
         String[] arraySpinner = new String[] {
                 "Audi", "Toyota", "Nissan", "Honda", "Hyundai", "Peguet", "Mazda", "Kia"
         };
@@ -99,6 +103,8 @@ public class SignUp extends AppCompatActivity {
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         fmt.setCalendar(date);
         String usrLastCareDate = fmt.format(date.getTime());
+
+        //log msg
         Log.d("ptttx", usrLastCareDate);
 
         /*if (firebaseAuth.getCurrentUser() != null){
@@ -106,6 +112,7 @@ public class SignUp extends AppCompatActivity {
             finish();
         }*/
 
+        //check if all data exist
         if (TextUtils.isEmpty(usrFullName)){
             edt_signup_fullName.setError("Full Name is required");
             return;
@@ -150,6 +157,8 @@ public class SignUp extends AppCompatActivity {
             return;
         }
         progressBarSignUp.setVisibility(View.VISIBLE);
+
+        //firebase sign up with email and password
         firebaseAuth.createUserWithEmailAndPassword(usrEmail, usrPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

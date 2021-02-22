@@ -35,9 +35,12 @@ import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
+    //firebase settings
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("users");
+
+    //containers list
     TextView emailTxt, carBrandTxt, carModelTxt, carYearTxt, carKmTxt, carLastTreatmentKmTxt, carLastTreatmentDateTxt, currentLocationHome, helloUsr_lbl;
     MaterialButton logoutBtn;
 
@@ -50,7 +53,8 @@ public class HomeActivity extends AppCompatActivity {
         Log.d("pttx","bbbb");
         findViews();
         initTextViews();
-        //startLocationService();
+
+        //check permissions
         if (ContextCompat.checkSelfPermission(
                 getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION
         ) != PackageManager.PERMISSION_GRANTED) {
@@ -63,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
             startLocationService();
         }
 
+        //when logout clicked - stop service and logout from db
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    //a function to check whether the service is running or not
     private boolean isLocationServiceRunning() {
         ActivityManager activityManager =
                 (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -129,6 +135,7 @@ public class HomeActivity extends AppCompatActivity {
             myRef.child(userUid).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //get the real time db values
                     User currentUser = snapshot.getValue(User.class);
                     helloUsr_lbl.setText("Hello " + currentUser.getFullName());
                     emailTxt.setText("User Email: " + currentUser.getEmail());
@@ -163,28 +170,6 @@ public class HomeActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.logout_homeActivity);
         currentLocationHome = findViewById(R.id.currentLocationHome);
         helloUsr_lbl = findViewById(R.id.helloUsr_lbl);
-    }
-
-    public static Double distance(Double latitudeA, Double latitudeB, Double longitudeA, Double longitudeB) {
-        double radius = 3958.75;
-        double dlat = ToRadians(Double.parseDouble(String.valueOf(latitudeB))
-                - Double.parseDouble(String.valueOf(latitudeA)));
-        double dlon = ToRadians(Double.parseDouble(String.valueOf(longitudeB))
-                - Double.parseDouble(String.valueOf(longitudeA)));
-        double a = Math.sin(dlat / 2)
-                * Math.sin(dlat / 2)
-                + Math.cos(ToRadians(Double.parseDouble(String.valueOf(latitudeA))))
-                * Math.cos(ToRadians(Double.parseDouble(String.valueOf(latitudeB)))) * Math.sin(dlon / 2)
-                * Math.sin(dlon / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        Double d = radius * c;
-        double meterConversion = 1609.00;
-        return d * meterConversion;
-    }
-
-    private static double ToRadians(double degrees) {
-        double radians = degrees * 3.1415926535897932385 / 180;
-        return radians;
     }
 }
 
