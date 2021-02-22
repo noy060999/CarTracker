@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -21,6 +23,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class SignUp extends AppCompatActivity {
 
@@ -88,20 +95,52 @@ public class SignUp extends AppCompatActivity {
         String usrCarYear = edt_signup_carYear.getText().toString();
         String usrCarBrand = spinner_signup_carBrand.getSelectedItem().toString();
         String usrLastCareKm = edt_lastCareKm.getText().toString();
-        String usrLastCareDate = datePicker_carLastCareDate.getDayOfMonth()+""
-                +datePicker_carLastCareDate.getMonth()+""
-                +datePicker_carLastCareDate.getYear()+"";
+        GregorianCalendar date = new GregorianCalendar(datePicker_carLastCareDate.getYear(), datePicker_carLastCareDate.getMonth(), datePicker_carLastCareDate.getDayOfMonth());
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+        fmt.setCalendar(date);
+        String usrLastCareDate = fmt.format(date.getTime());
+        Log.d("ptttx", usrLastCareDate);
 
-
-        if (firebaseAuth.getCurrentUser() != null){
+        /*if (firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(SignUp.this, HomeActivity.class));
             finish();
+        }*/
+
+        if (TextUtils.isEmpty(usrFullName)){
+            edt_signup_fullName.setError("Full Name is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(usrLastCareKm)){
+            edt_lastCareKm.setError("Last treatment km's is required");
+            return;
         }
 
         if (TextUtils.isEmpty(usrEmail)){
             edt_signup_email.setError("Email is required");
             return;
         }
+
+        if (TextUtils.isEmpty(usrCarKM)){
+            edt_signup_carKm.setError("Car Km's is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(usrCarModel)){
+            edt_signup_carModel.setError("Car Model is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(usrCarYear)){
+            edt_signup_carYear.setError("Car Manufactured Year is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(usrCarNumber)){
+            edt_signup_carNumber.setError("Car Number is required");
+            return;
+        }
+
         if (TextUtils.isEmpty(usrPassword)){
             edt_signup_password.setError("Password is required");
             return;
@@ -116,13 +155,16 @@ public class SignUp extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(SignUp.this, "User Created", Toast.LENGTH_SHORT).show();
-                    User newUser = new User(usrEmail);
+                    User newUser = new User(usrEmail, usrFullName, new Car(usrCarBrand, usrCarModel, usrCarNumber, usrCarKM, usrCarYear,32.0,32.0, new CarTreatment(usrLastCareKm, usrLastCareDate)));
                     String uid = task.getResult().getUser().getUid();
                     myRef.child(uid).setValue(newUser);
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    progressBarSignUp.setVisibility(View.INVISIBLE);
+                    finish();
                 }
                 else {
                     Toast.makeText(SignUp.this, "Failed to create user" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBarSignUp.setVisibility(View.INVISIBLE);
                 }
             }
         });

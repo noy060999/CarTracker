@@ -1,28 +1,29 @@
 package com.example.cartracker;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class CarTreatment {
-    private long lastTreatmentKM;
-    private Date lastTreatmentDate;
+    private String lastTreatmentKM;
+    private String lastTreatmentDate;
 
-    public long getLastTreatmentKM() {
+    public String getLastTreatmentKM() {
         return lastTreatmentKM;
     }
 
-    public void setLastTreatmentKM(long lastTreatmentKM) {
+    public void setLastTreatmentKM(String lastTreatmentKM) {
         this.lastTreatmentKM = lastTreatmentKM;
     }
 
-    public Date getLastTreatmentDate() {
+    public String getLastTreatmentDate() {
         return lastTreatmentDate;
     }
 
-    public void setLastTreatmentDate(Date lastTreatmentDate) {
+    public void setLastTreatmentDate(String lastTreatmentDate) {
         this.lastTreatmentDate = lastTreatmentDate;
     }
 
-    public CarTreatment(long lastTreatmentKM, Date lastTreatmentDate) {
+    public CarTreatment(String lastTreatmentKM, String lastTreatmentDate) {
         this.lastTreatmentKM = lastTreatmentKM;
         this.lastTreatmentDate = lastTreatmentDate;
     }

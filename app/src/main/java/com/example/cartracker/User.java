@@ -3,8 +3,16 @@ package com.example.cartracker;
 public class User {
     private String email;
     private String fullName;
-    private String phone;
-    private Car[] cars;
+    private Car car;
+    private float distance;
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
+    }
 
     public String getEmail() {
         return email;
@@ -22,27 +30,18 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getPhone() {
-        return phone;
+    public Car getCar() {
+        return car;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
-    public Car[] getCars() {
-        return cars;
-    }
-
-    public void setCars(Car[] cars) {
-        this.cars = cars;
-    }
-
-    public User(String email, String fullName, String phone, Car[] cars) {
+    public User(String email, String fullName, Car car) {
         this.email = email;
-        this.cars = cars;
+        this.car = car;
         this.fullName = fullName;
-        this.phone = phone;
     }
 
     public User(){

@@ -1,12 +1,31 @@
 package com.example.cartracker;
 
+import android.location.Location;
+
 public class Car {
     private String carBrand;
     private String carModel;
     private String carNumber;
     private String carKM;
-    private long carManufactureYear;
+    private String carManufactureYear;
     private CarTreatment carTreatment;
+    private Double lon, lat;
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
 
     public String getCarBrand() {
         return carBrand;
@@ -40,11 +59,11 @@ public class Car {
         this.carKM = carKM;
     }
 
-    public long getCarManufactureYear() {
+    public String getCarManufactureYear() {
         return carManufactureYear;
     }
 
-    public void setCarManufactureYear(long carManufactureYear) {
+    public void setCarManufactureYear(String carManufactureYear) {
         this.carManufactureYear = carManufactureYear;
     }
 
@@ -56,11 +75,13 @@ public class Car {
         this.carTreatment = carTreatment;
     }
 
-    public Car(String carBrand, String carModel, String carNumber, String carKM, long carManufactureYear, CarTreatment carTreatment) {
+    public Car(String carBrand, String carModel, String carNumber, String carKM, String carManufactureYear,Double lon, Double lat, CarTreatment carTreatment) {
         this.carBrand = carBrand;
         this.carModel = carModel;
         this.carNumber = carNumber;
         this.carKM = carKM;
+        this.lat = lat;
+        this.lon = lon;
         this.carManufactureYear = carManufactureYear;
         this.carTreatment = carTreatment;
     }

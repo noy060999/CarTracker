@@ -7,10 +7,23 @@
     tools:context=".HomeActivity"
     android:background="#FEE2BE">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logout_homeActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:fontFamily="cursive"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        />
+
     <TextView
         android:id="@+id/helloUsr_lbl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/logout_homeActivity"
         android:text="Hello User"
         android:gravity="center"
         android:layout_marginTop="10dp"
@@ -22,38 +35,100 @@
 
     <LinearLayout
         android:id="@+id/firstLinearLayoutHome"
-        android:layout_width="wrap_content"
+        android:layout_below="@id/helloUsr_lbl"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
         android:layout_margin="10dp"
         >
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:backgroundTint="#F98181"
-            android:padding="15dp"
-            android:fontFamily="cursive"
-            android:text="My Profile"
-            android:gravity="center"
+        <TextView
+            android:id="@+id/email_txtHome"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:text="email"
+            android:textSize="16sp"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="150dp"
-            android:padding="15dp"
-            android:gravity="center"
-            android:layout_height="150dp"
-            android:backgroundTint="#F98181"
-            android:fontFamily="cursive"
-            android:text="Treatment History"
+        <TextView
+            android:id="@+id/carBrand_txtHome"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:text="car brand"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/carModel_txtHome"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="car model"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/carYear_txtHome"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="car year"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/carKm_txtHome"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="car km"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/carTreatmentKm_txtHome"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="car last treatment km"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/carTreatmentDate_txtHome"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="car last treatment date"
+            android:textSize="16sp"/>
+
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/currentLocationHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstLinearLayoutHome"
+        android:text="Current Location: "
+        android:textSize="35sp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:fontFamily="cursive"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="25dp"/>
 
 </RelativeLayout>
